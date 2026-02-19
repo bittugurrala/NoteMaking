@@ -1,5 +1,5 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddNote from './components/addNote'
 import RecentNotes from './components/recentNotes'
 
@@ -7,7 +7,13 @@ function App() {
 
   const [title, setTitle] = useState("")
   const [desc, setDesc] = useState("")
-  const [tasks, setTasks] = useState([])
+
+  // before starting the application chech weather the localstorage is there or not 
+  // if there is exists the local storage then useState should have parsed values of that local storage else [] empty array
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem("tasks")
+    return savedTasks ? JSON.parse(savedTasks) : []    
+  })
 
 
   const submitHandler = (e) =>{
@@ -33,12 +39,17 @@ function App() {
 
     const deleteTask = (idx) =>{
         // const copy = [...tasks]
-
-        // copy.splice(idx, 1)
+        // copy.splice(idx, 1)   //in this way we can use splice as the idx-item will get spliced and a new array will be created
         // setTasks(copy)
 
-        setTasks(prev => prev.filter((_, i) => i !== idx))
+        setTasks(prev => prev.filter((_, i) => i !== idx))  //Use filter because it returns the Array after deleting the idx-item
     }
+
+    // when ever the tasks array changes (by update using map or by deletion using filter tasks changes)
+    // then the useEffect sets the updated tasks to the local storage.
+    useEffect(() => {
+      localStorage.setItem("tasks", JSON.stringify(tasks))
+    }, [tasks])
 
 
 
@@ -71,3 +82,9 @@ export default App
     // The most used and industry way of doing the above task is 
 
     // setTasks (prev => [...prev, {title, desc}])    //This is writing all the this mixing always use this in React
+
+
+    //LOCAL STORAGE
+    // For local storage we have three imp methods  => localstorage.getItem(), localstorage.setItem(), localstorage.removeItem()
+    // Local storage can only have JSON data, so we use JSON.stringify() method to convert the avaliable data into a string
+    // we use JSON.parse() to convert the string back to its form 
