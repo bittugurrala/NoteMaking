@@ -72,19 +72,22 @@ export default App
     //setTasks(copyTask)   //Update the array with the copied(updated) 
 
 
-    // The above one can also be written as
-
+  // The above one can also be written a
     //  const copyTask = [...tasks, {title, desc}]       //First create a copy using the gathering method and add the new object
     // copyTask.push({title, desc})  //In that copy push the new objects
     // setTasks(copyTask)   //Update the array with the copied(updated) 
 
 
-    // The most used and industry way of doing the above task is 
-
+  // The most used and industry way of doing the above task is 
     // setTasks (prev => [...prev, {title, desc}])    //This is writing all the this mixing always use this in React
 
 
-    //LOCAL STORAGE
+//LOCAL STORAGE
     // For local storage we have three imp methods  => localstorage.getItem(), localstorage.setItem(), localstorage.removeItem()
     // Local storage can only have JSON data, so we use JSON.stringify() method to convert the avaliable data into a string
     // we use JSON.parse() to convert the string back to its form 
+
+
+// useState
+    // To talk lucidly, when we have variables that we have to pass in between / share in between / exchange in between we have to make them as state
+    // that can be any variable that can be an input or radio or check any thing 
